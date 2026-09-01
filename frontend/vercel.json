@@ -1,9 +1,5 @@
 {
   "rewrites": [
-    {
-      "source": "/api/:path*",
-      "destination": "https://depense-v8j7.onrender.com/api/:path*"
-    },
     { "source": "/(.*)", "destination": "/index.html" }
   ]
 }
