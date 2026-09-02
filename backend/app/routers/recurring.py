@@ -28,6 +28,45 @@ def create_recurring(
         note=payload.note,
     )
     db.add(recurring)
+    db.flush()  # get the recurring.id before commit
+
+    # If the recurring day has already passed (or is today) this month,
+    # auto-create this month's expense so it counts immediately.
+    today = date.today()
+    if payload.day_of_month <= today.day:
+        # Build the actual expense date for this month
+        try:
+            expense_date = date(today.year, today.month, payload.day_of_month)
+        except ValueError:
+            # day_of_month exceeds this month's days (e.g. 31 in Feb) — use last day
+            import calendar
+            last_day = calendar.monthrange(today.year, today.month)[1]
+            expense_date = date(today.year, today.month, last_day)
+
+        # Check idempotency — don't duplicate if already exists
+        existing = (
+            db.query(Expense)
+            .filter(
+                Expense.user_id == current_user.id,
+                Expense.vendor == payload.vendor,
+                Expense.amount == payload.amount,
+                Expense.date == expense_date,
+                Expense.is_recurring == True,
+            )
+            .first()
+        )
+        if not existing:
+            expense = Expense(
+                user_id=current_user.id,
+                amount=payload.amount,
+                vendor=payload.vendor,
+                payment_method=payload.payment_method.value,
+                date=expense_date,
+                note=payload.note or "Auto-logged recurring expense",
+                is_recurring=True,
+            )
+            db.add(expense)
+
     db.commit()
     db.refresh(recurring)
     return recurring
