@@ -13,7 +13,7 @@ class Settings(BaseSettings):
 
     # Resend
     resend_api_key: str = ""
-    from_email: str = "reminders@kharcha.app"
+    from_email: str = "reminders@depense.app"
 
     # App
     app_name: str = "Dépense"

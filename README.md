@@ -1,4 +1,4 @@
-# Kharcha — Personal Expense Tracker
+# Dépense — Personal Expense Tracker
 
 A full-stack expense tracker for you and your friends. Track daily expenses, auto-log recurring payments, view spending charts, and stay on top of your budget — all for free.
 
