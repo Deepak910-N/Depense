@@ -51,13 +51,13 @@ export default function AddExpense() {
   return (
     <div className="h-full flex flex-col overflow-hidden">
       <div className="px-4 pt-4 pb-2 shrink-0">
-        <h1 className="text-xl font-bold text-gray-900">Add Expense</h1>
+        <h1 className="text-2xl font-bold text-gray-900">Add Expense</h1>
       </div>
 
       <form onSubmit={handleSubmit} className="flex-1 overflow-y-auto scroll-hide px-4 pb-4 space-y-4">
         {/* Amount */}
         <div>
-          <label className="block text-xs font-medium text-gray-500 mb-1">Amount (INR)</label>
+          <label className="block text-sm font-medium text-gray-600 mb-1">Amount (INR)</label>
           <input type="number" step="0.01" min="0" required value={form.amount}
             onChange={(e) => setForm({ ...form, amount: e.target.value })}
             className="w-full px-4 py-3 border border-gray-200 rounded-xl text-2xl font-bold focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none"
@@ -66,7 +66,7 @@ export default function AddExpense() {
 
         {/* Vendor */}
         <div className="relative">
-          <label className="block text-xs font-medium text-gray-500 mb-1">Vendor / Platform</label>
+          <label className="block text-sm font-medium text-gray-600 mb-1">Vendor / Platform</label>
           <input type="text" required value={form.vendor}
             onChange={(e) => setForm({ ...form, vendor: e.target.value })}
             onFocus={() => suggestions.length > 0 && setShowSuggestions(true)}
@@ -85,7 +85,7 @@ export default function AddExpense() {
 
         {/* Payment Method */}
         <div>
-          <label className="block text-xs font-medium text-gray-500 mb-1">Payment Method</label>
+          <label className="block text-sm font-medium text-gray-600 mb-1">Payment Method</label>
           <div className="flex gap-2">
             {PAYMENT_METHODS.map(({ value, label }) => (
               <button key={value} type="button" onClick={() => setForm({ ...form, payment_method: value })}
@@ -101,13 +101,13 @@ export default function AddExpense() {
         {/* Date + Note in a row */}
         <div className="grid grid-cols-2 gap-3">
           <div>
-            <label className="block text-xs font-medium text-gray-500 mb-1">Date</label>
+            <label className="block text-sm font-medium text-gray-600 mb-1">Date</label>
             <input type="date" required value={form.date}
               onChange={(e) => setForm({ ...form, date: e.target.value })}
               className="w-full px-3 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 outline-none text-sm" />
           </div>
           <div>
-            <label className="block text-xs font-medium text-gray-500 mb-1">Note</label>
+            <label className="block text-sm font-medium text-gray-600 mb-1">Note</label>
             <input type="text" value={form.note}
               onChange={(e) => setForm({ ...form, note: e.target.value })}
               className="w-full px-3 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 outline-none text-sm"

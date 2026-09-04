@@ -48,7 +48,7 @@ export default function ExpenseList() {
     <div className="h-full flex flex-col overflow-hidden">
       {/* Fixed header */}
       <div className="px-4 pt-4 pb-2 shrink-0">
-        <h1 className="text-xl font-bold text-gray-900 mb-2">Expenses</h1>
+        <h1 className="text-2xl font-bold text-gray-900 mb-3">Expenses</h1>
         <div className="flex gap-2">
           <select value={month} onChange={(e) => setMonth(e.target.value)}
             className="flex-1 px-2 py-1.5 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-primary-500 outline-none bg-white">
@@ -76,19 +76,19 @@ export default function ExpenseList() {
         ) : (
           <div className="space-y-1.5">
             {expenses.map((exp) => (
-              <div key={exp.id} className="bg-white rounded-xl border border-gray-100 px-3 py-2.5 flex items-center justify-between">
+              <div key={exp.id} className="bg-white rounded-xl border border-gray-100 px-4 py-3.5 flex items-center justify-between">
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-1.5">
-                    <span className="font-medium text-gray-900 text-sm truncate">{exp.vendor}</span>
-                    {exp.is_recurring && <span className="text-[10px] bg-blue-50 text-blue-600 px-1.5 py-0.5 rounded-full shrink-0">Auto</span>}
+                    <span className="font-medium text-gray-900 text-base truncate">{exp.vendor}</span>
+                    {exp.is_recurring && <span className="text-xs bg-blue-50 text-blue-600 px-1.5 py-0.5 rounded-full shrink-0">Auto</span>}
                   </div>
-                  <div className="flex items-center gap-2 mt-0.5 text-[10px] text-gray-400">
+                  <div className="flex items-center gap-2 mt-1 text-xs text-gray-400">
                     <span>{format(new Date(exp.date), "dd MMM")}</span>
                     <span className="px-1.5 py-0.5 bg-gray-50 rounded-full">{METHOD_LABELS[exp.payment_method] || exp.payment_method}</span>
                   </div>
                 </div>
                 <div className="flex items-center gap-2 shrink-0">
-                  <span className="text-sm font-semibold text-gray-900">{"\u20B9"}{exp.amount.toLocaleString("en-IN")}</span>
+                  <span className="text-base font-semibold text-gray-900">{"\u20B9"}{exp.amount.toLocaleString("en-IN")}</span>
                   <button onClick={() => handleDelete(exp.id)} className="text-gray-300 active:text-red-500 p-1">
                     <HiTrash className="w-4 h-4" />
                   </button>

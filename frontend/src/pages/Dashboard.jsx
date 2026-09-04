@@ -45,10 +45,10 @@ export default function Dashboard() {
     <div className="h-full flex flex-col overflow-hidden">
       {/* Header */}
       <div className="px-4 pt-4 pb-2 shrink-0">
-        <h1 className="text-xl font-bold text-gray-900">
+        <h1 className="text-2xl font-bold text-gray-900">
           Hey, {user?.name?.split(" ")[0]}
         </h1>
-        <p className="text-gray-400 text-xs">Your spending overview</p>
+        <p className="text-gray-500 text-sm">Your spending overview</p>
       </div>
 
       {/* Tab toggle */}
@@ -58,7 +58,7 @@ export default function Dashboard() {
             <button
               key={t}
               onClick={() => setTab(t)}
-              className={`flex-1 py-1.5 text-xs font-medium rounded-lg transition ${
+              className={`flex-1 py-2 text-sm font-medium rounded-lg transition ${
                 tab === t ? "bg-white text-primary-600 shadow-sm" : "text-gray-500"
               }`}
             >
@@ -98,10 +98,10 @@ export default function Dashboard() {
 
 function KPICard({ label, value, sub }) {
   return (
-    <div className="bg-white rounded-xl p-3 border border-gray-100">
-      <p className="text-[10px] font-medium text-gray-400 uppercase tracking-wide">{label}</p>
-      <p className="text-lg font-bold text-gray-900 mt-0.5 truncate">{value}</p>
-      {sub && <p className="text-[10px] text-gray-400">{sub}</p>}
+    <div className="bg-white rounded-xl p-4 border border-gray-100">
+      <p className="text-xs font-medium text-gray-400 uppercase tracking-wide">{label}</p>
+      <p className="text-xl font-bold text-gray-900 mt-1 truncate">{value}</p>
+      {sub && <p className="text-xs text-gray-400 mt-0.5">{sub}</p>}
     </div>
   );
 }

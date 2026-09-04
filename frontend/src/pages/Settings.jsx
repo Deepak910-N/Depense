@@ -46,7 +46,7 @@ export default function Settings() {
   return (
     <div className="h-full flex flex-col overflow-hidden">
       <div className="px-4 pt-4 pb-2 shrink-0">
-        <h1 className="text-xl font-bold text-gray-900">Settings</h1>
+        <h1 className="text-2xl font-bold text-gray-900">Settings</h1>
       </div>
 
       <div className="flex-1 overflow-y-auto scroll-hide px-4 pb-4 space-y-4">
@@ -54,12 +54,12 @@ export default function Settings() {
         <div className="bg-white p-4 rounded-xl border border-gray-100 space-y-3">
           <h2 className="text-sm font-semibold text-gray-800">Profile</h2>
           <div>
-            <label className="block text-[10px] font-medium text-gray-500 mb-0.5">Name</label>
+            <label className="block text-sm font-medium text-gray-600 mb-1">Name</label>
             <input type="text" value={name} onChange={(e) => setName(e.target.value)}
               className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-primary-500 outline-none" />
           </div>
           <div>
-            <label className="block text-[10px] font-medium text-gray-500 mb-0.5">Monthly Budget (INR)</label>
+            <label className="block text-sm font-medium text-gray-600 mb-1">Monthly Budget (INR)</label>
             <input type="number" min="0" step="100" value={budget} onChange={(e) => setBudget(e.target.value)}
               className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-primary-500 outline-none" placeholder="e.g. 30000" />
           </div>
@@ -77,13 +77,13 @@ export default function Settings() {
           </div>
           <div className={`grid grid-cols-2 gap-3 transition-opacity ${reminders.is_enabled ? "" : "opacity-40 pointer-events-none"}`}>
             <div>
-              <label className="block text-[10px] font-medium text-gray-500 mb-0.5">Time 1</label>
+              <label className="block text-sm font-medium text-gray-600 mb-1">Time 1</label>
               <input type="time" value={reminders.reminder_time_1}
                 onChange={(e) => setReminders({ ...reminders, reminder_time_1: e.target.value })}
                 className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-primary-500 outline-none" />
             </div>
             <div>
-              <label className="block text-[10px] font-medium text-gray-500 mb-0.5">Time 2</label>
+              <label className="block text-sm font-medium text-gray-600 mb-1">Time 2</label>
               <input type="time" value={reminders.reminder_time_2}
                 onChange={(e) => setReminders({ ...reminders, reminder_time_2: e.target.value })}
                 className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-primary-500 outline-none" />

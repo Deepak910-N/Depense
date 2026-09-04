@@ -22,14 +22,14 @@ export default function Navbar() {
               <Link
                 key={path}
                 to={path}
-                className="flex flex-col items-center -mt-5"
+                className="flex flex-col items-center -mt-6"
               >
-                <div className={`w-12 h-12 rounded-full flex items-center justify-center shadow-lg ${
+                <div className={`w-14 h-14 rounded-full flex items-center justify-center shadow-lg ${
                   active ? "bg-primary-600" : "bg-primary-500"
                 }`}>
-                  <Icon className="w-6 h-6 text-white" />
+                  <Icon className="w-7 h-7 text-white" />
                 </div>
-                <span className="text-[10px] mt-0.5 text-primary-600 font-medium">{label}</span>
+                <span className="text-xs mt-0.5 text-primary-600 font-medium">{label}</span>
               </Link>
             );
           }
@@ -41,8 +41,8 @@ export default function Navbar() {
                 active ? "text-primary-600" : "text-gray-400"
               }`}
             >
-              <Icon className="w-5 h-5" />
-              <span className="text-[10px]">{label}</span>
+              <Icon className="w-6 h-6" />
+              <span className="text-xs">{label}</span>
             </Link>
           );
         })}
