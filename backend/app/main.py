@@ -88,11 +88,13 @@ app = FastAPI(
     lifespan=lifespan,
 )
 
-# CORS — allow frontend origin
+# CORS — allow frontend origins
+# For a small private app, allow all origins.
+# The app is auth-protected (JWT), so CORS is not the security boundary.
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[settings.frontend_url, "http://localhost:5173"],
-    allow_credentials=True,
+    allow_origins=["*"],
+    allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
 )

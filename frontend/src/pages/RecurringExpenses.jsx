@@ -163,7 +163,7 @@ export default function RecurringExpenses() {
                   </span>
                 </div>
                 <p className="text-xs text-gray-400 mt-1">
-                  Day {item.day_of_month} of every month \u00B7 {METHOD_LABELS[item.payment_method]}
+                  Day {item.day_of_month} of every month · {METHOD_LABELS[item.payment_method]}
                 </p>
               </div>
               <div className="flex items-center gap-3">

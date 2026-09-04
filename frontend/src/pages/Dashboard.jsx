@@ -67,7 +67,7 @@ export default function Dashboard() {
           <KPICard label="Daily Avg" value={`₹${summary.daily_average.toLocaleString("en-IN")}`} />
           <KPICard
             label="Top Vendor"
-            value={summary.top_vendor || "\u2014"}
+            value={summary.top_vendor || "—"}
             sub={summary.top_vendor ? `₹${summary.top_vendor_amount.toLocaleString("en-IN")}` : ""}
           />
         </div>
