@@ -23,7 +23,7 @@ export default function Register() {
       <div className="w-full max-w-sm">
         <div className="text-center mb-6">
           <div className="w-16 h-16 bg-primary-600 rounded-2xl flex items-center justify-center mx-auto mb-3">
-            <span className="text-white text-2xl font-bold">{"\u20B9"}</span>
+            <span className="text-white text-2xl font-bold">{"₹"}</span>
           </div>
           <h1 className="text-2xl font-bold text-gray-900">Create Account</h1>
         </div>

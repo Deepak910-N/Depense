@@ -76,19 +76,19 @@ export default function ExpenseList() {
         ) : (
           <div className="space-y-1.5">
             {expenses.map((exp) => (
-              <div key={exp.id} className="bg-white rounded-xl border border-gray-100 px-4 py-3.5 flex items-center justify-between">
+              <div key={exp.id} className="bg-white rounded-xl border border-gray-100 px-4 py-4 flex items-center justify-between">
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-1.5">
-                    <span className="font-medium text-gray-900 text-base truncate">{exp.vendor}</span>
+                    <span className="font-medium text-gray-900 text-lg truncate">{exp.vendor}</span>
                     {exp.is_recurring && <span className="text-xs bg-blue-50 text-blue-600 px-1.5 py-0.5 rounded-full shrink-0">Auto</span>}
                   </div>
-                  <div className="flex items-center gap-2 mt-1 text-xs text-gray-400">
+                  <div className="flex items-center gap-2 mt-1 text-sm text-gray-400">
                     <span>{format(new Date(exp.date), "dd MMM")}</span>
                     <span className="px-1.5 py-0.5 bg-gray-50 rounded-full">{METHOD_LABELS[exp.payment_method] || exp.payment_method}</span>
                   </div>
                 </div>
                 <div className="flex items-center gap-2 shrink-0">
-                  <span className="text-base font-semibold text-gray-900">{"\u20B9"}{exp.amount.toLocaleString("en-IN")}</span>
+                  <span className="text-lg font-semibold text-gray-900">{"\u20B9"}{exp.amount.toLocaleString("en-IN")}</span>
                   <button onClick={() => handleDelete(exp.id)} className="text-gray-300 active:text-red-500 p-1">
                     <HiTrash className="w-4 h-4" />
                   </button>

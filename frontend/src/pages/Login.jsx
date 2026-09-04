@@ -21,9 +21,9 @@ export default function Login() {
       <div className="w-full max-w-sm">
         <div className="text-center mb-8">
           <div className="w-16 h-16 bg-primary-600 rounded-2xl flex items-center justify-center mx-auto mb-3">
-            <span className="text-white text-2xl font-bold">{"\u20B9"}</span>
+            <span className="text-white text-2xl font-bold">{"₹"}</span>
           </div>
-          <h1 className="text-2xl font-bold text-gray-900">D\u00e9pense</h1>
+          <h1 className="text-2xl font-bold text-gray-900">Dépense</h1>
           <p className="text-gray-400 text-sm mt-1">Track expenses effortlessly</p>
         </div>
         <form onSubmit={handleSubmit} className="space-y-4">

@@ -98,10 +98,10 @@ export default function Dashboard() {
 
 function KPICard({ label, value, sub }) {
   return (
-    <div className="bg-white rounded-xl p-4 border border-gray-100">
-      <p className="text-xs font-medium text-gray-400 uppercase tracking-wide">{label}</p>
-      <p className="text-xl font-bold text-gray-900 mt-1 truncate">{value}</p>
-      {sub && <p className="text-xs text-gray-400 mt-0.5">{sub}</p>}
+    <div className="bg-white rounded-xl p-5 border border-gray-100">
+      <p className="text-sm font-medium text-gray-400 uppercase tracking-wide">{label}</p>
+      <p className="text-2xl font-bold text-gray-900 mt-1 truncate">{value}</p>
+      {sub && <p className="text-sm text-gray-400 mt-0.5">{sub}</p>}
     </div>
   );
 }

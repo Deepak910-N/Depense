@@ -41,7 +41,7 @@ export default function Navbar() {
                 active ? "text-primary-600" : "text-gray-400"
               }`}
             >
-              <Icon className="w-6 h-6" />
+              <Icon className="w-7 h-7" />
               <span className="text-xs">{label}</span>
             </Link>
           );
