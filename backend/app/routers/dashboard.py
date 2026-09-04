@@ -23,7 +23,7 @@ def get_monthly_summary(
     m = month or today.month
     y = year or today.year
 
-    expenses = (
+    all_expenses = (
         db.query(Expense)
         .filter(
             Expense.user_id == current_user.id,
@@ -33,8 +33,12 @@ def get_monthly_summary(
         .all()
     )
 
-    total = sum(e.amount for e in expenses)
-    count = len(expenses)
+    # Total includes everything (recurring + manual)
+    total = sum(e.amount for e in all_expenses)
+    count = len(all_expenses)
+
+    # Non-recurring expenses only (for daily avg and top vendor)
+    manual_expenses = [e for e in all_expenses if not e.is_recurring]
 
     # Days elapsed in the month (for daily avg)
     if m == today.month and y == today.year:
@@ -46,11 +50,12 @@ def get_monthly_summary(
         else:
             days = (date(y, m + 1, 1) - date(y, m, 1)).days
 
-    daily_avg = round(total / max(days, 1), 2)
+    manual_total = sum(e.amount for e in manual_expenses)
+    daily_avg = round(manual_total / max(days, 1), 2)
 
-    # Top vendor
+    # Top vendor (non-recurring only)
     vendor_totals = {}
-    for e in expenses:
+    for e in manual_expenses:
         vendor_totals[e.vendor] = vendor_totals.get(e.vendor, 0) + e.amount
     top_vendor = max(vendor_totals, key=vendor_totals.get) if vendor_totals else None
     top_vendor_amount = round(vendor_totals.get(top_vendor, 0), 2) if top_vendor else 0
@@ -90,6 +95,7 @@ def get_expenses_by_vendor(
             Expense.user_id == current_user.id,
             extract("month", Expense.date) == m,
             extract("year", Expense.date) == y,
+            Expense.is_recurring == False,
         )
         .group_by(Expense.vendor)
         .order_by(func.sum(Expense.amount).desc())
