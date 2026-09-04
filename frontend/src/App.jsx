@@ -22,33 +22,32 @@ export default function App() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      {user && <Navbar />}
-      <main className={user ? "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8" : ""}>
+    <div className="h-full flex flex-col bg-gray-50 overflow-hidden">
+      {user ? (
+        <>
+          {/* Page content — fills space between top and bottom nav */}
+          <main className="flex-1 overflow-hidden">
+            <Routes>
+              <Route element={<ProtectedRoute />}>
+                <Route path="/" element={<Dashboard />} />
+                <Route path="/add" element={<AddExpense />} />
+                <Route path="/expenses" element={<ExpenseList />} />
+                <Route path="/recurring" element={<RecurringExpenses />} />
+                <Route path="/settings" element={<Settings />} />
+              </Route>
+              <Route path="*" element={<Navigate to="/" replace />} />
+            </Routes>
+          </main>
+          {/* Bottom tab bar */}
+          <Navbar />
+        </>
+      ) : (
         <Routes>
-          {/* Public */}
-          <Route
-            path="/login"
-            element={user ? <Navigate to="/" replace /> : <Login />}
-          />
-          <Route
-            path="/register"
-            element={user ? <Navigate to="/" replace /> : <Register />}
-          />
-
-          {/* Protected */}
-          <Route element={<ProtectedRoute />}>
-            <Route path="/" element={<Dashboard />} />
-            <Route path="/add" element={<AddExpense />} />
-            <Route path="/expenses" element={<ExpenseList />} />
-            <Route path="/recurring" element={<RecurringExpenses />} />
-            <Route path="/settings" element={<Settings />} />
-          </Route>
-
-          {/* Fallback */}
-          <Route path="*" element={<Navigate to="/" replace />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="*" element={<Navigate to="/login" replace />} />
         </Routes>
-      </main>
+      )}
     </div>
   );
 }

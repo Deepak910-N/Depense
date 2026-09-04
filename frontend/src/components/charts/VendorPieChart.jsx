@@ -17,7 +17,7 @@ export default function VendorPieChart({ data }) {
   return (
     <div className="bg-white rounded-2xl p-5 border border-gray-100">
       <h3 className="text-sm font-medium text-gray-600 mb-4">Spending by Vendor</h3>
-      <ResponsiveContainer width="100%" height={280}>
+      <ResponsiveContainer width="100%" height={220}>
         <PieChart>
           <Pie
             data={data}
@@ -25,13 +25,13 @@ export default function VendorPieChart({ data }) {
             nameKey="vendor"
             cx="50%"
             cy="50%"
-            outerRadius={100}
-            innerRadius={50}
+            outerRadius={75}
+            innerRadius={40}
             paddingAngle={2}
             label={({ vendor, percent }) =>
-              `${vendor} (${(percent * 100).toFixed(0)}%)`
+              `${vendor} ${(percent * 100).toFixed(0)}%`
             }
-            labelLine={true}
+            labelLine={false}
           >
             {data.map((_, idx) => (
               <Cell key={idx} fill={COLORS[idx % COLORS.length]} />

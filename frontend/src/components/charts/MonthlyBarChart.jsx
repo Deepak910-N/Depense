@@ -14,7 +14,7 @@ export default function MonthlyBarChart({ data }) {
   return (
     <div className="bg-white rounded-2xl p-5 border border-gray-100">
       <h3 className="text-sm font-medium text-gray-600 mb-4">Monthly Trend</h3>
-      <ResponsiveContainer width="100%" height={280}>
+      <ResponsiveContainer width="100%" height={220}>
         <BarChart data={data} margin={{ top: 5, right: 5, left: 0, bottom: 5 }}>
           <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" />
           <XAxis dataKey="month" tick={{ fontSize: 12 }} stroke="#94a3b8" />

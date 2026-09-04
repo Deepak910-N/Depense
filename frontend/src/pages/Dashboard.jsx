@@ -15,75 +15,82 @@ export default function Dashboard() {
   const [streak, setStreak] = useState({ current_streak: 0, longest_streak: 0 });
   const [comparison, setComparison] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [tab, setTab] = useState("overview"); // overview | charts
 
-  useEffect(() => {
-    loadDashboard();
-  }, []);
+  useEffect(() => { loadDashboard(); }, []);
 
   const loadDashboard = async () => {
     try {
-      const [summaryRes, vendorRes, trendRes, streakRes, compRes] = await Promise.all([
+      const [s, v, t, st, c] = await Promise.all([
         dashboardAPI.summary(),
         dashboardAPI.byVendor(),
         dashboardAPI.monthlyTrend(),
         dashboardAPI.streak(),
         dashboardAPI.monthComparison(),
       ]);
-      setSummary(summaryRes);
-      setVendorData(vendorRes);
-      setTrendData(trendRes);
-      setStreak(streakRes);
-      setComparison(compRes);
-    } catch (err) {
-      console.error("Dashboard load failed:", err);
-    } finally {
-      setLoading(false);
-    }
+      setSummary(s); setVendorData(v); setTrendData(t); setStreak(st); setComparison(c);
+    } catch (err) { console.error(err); }
+    finally { setLoading(false); }
   };
 
   if (loading) {
     return (
-      <div className="flex justify-center py-20">
+      <div className="h-full flex items-center justify-center">
         <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-primary-600"></div>
       </div>
     );
   }
 
   return (
-    <div className="space-y-6 pb-20 sm:pb-6">
-      {/* Greeting */}
-      <div>
-        <h1 className="text-2xl font-bold text-gray-900">
+    <div className="h-full flex flex-col overflow-hidden">
+      {/* Header */}
+      <div className="px-4 pt-4 pb-2 shrink-0">
+        <h1 className="text-xl font-bold text-gray-900">
           Hey, {user?.name?.split(" ")[0]}
         </h1>
-        <p className="text-gray-500 text-sm mt-1">Here's your spending overview</p>
+        <p className="text-gray-400 text-xs">Your spending overview</p>
       </div>
 
-      {/* KPI Row */}
-      {summary && (
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-          <KPICard label="This Month" value={`₹${summary.total.toLocaleString("en-IN")}`} />
-          <KPICard label="Transactions" value={summary.transaction_count} />
-          <KPICard label="Daily Avg" value={`₹${summary.daily_average.toLocaleString("en-IN")}`} />
-          <KPICard
-            label="Top Vendor"
-            value={summary.top_vendor || "—"}
-            sub={summary.top_vendor ? `₹${summary.top_vendor_amount.toLocaleString("en-IN")}` : ""}
-          />
+      {/* Tab toggle */}
+      <div className="px-4 pb-2 shrink-0">
+        <div className="flex bg-gray-100 rounded-xl p-0.5">
+          {["overview", "charts"].map((t) => (
+            <button
+              key={t}
+              onClick={() => setTab(t)}
+              className={`flex-1 py-1.5 text-xs font-medium rounded-lg transition ${
+                tab === t ? "bg-white text-primary-600 shadow-sm" : "text-gray-500"
+              }`}
+            >
+              {t === "overview" ? "Overview" : "Charts"}
+            </button>
+          ))}
         </div>
-      )}
-
-      {/* Streak + Budget + Comparison */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <StreakTracker currentStreak={streak.current_streak} longestStreak={streak.longest_streak} />
-        <BudgetProgress spent={summary?.total || 0} budget={summary?.budget} />
-        <MonthComparison data={comparison} />
       </div>
 
-      {/* Charts */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <VendorPieChart data={vendorData} />
-        <MonthlyBarChart data={trendData} />
+      {/* Scrollable content area */}
+      <div className="flex-1 overflow-y-auto scroll-hide px-4 pb-4 space-y-3">
+        {tab === "overview" ? (
+          <>
+            {/* KPI Grid */}
+            {summary && (
+              <div className="grid grid-cols-2 gap-2.5">
+                <KPICard label="This Month" value={"\u20B9" + summary.total.toLocaleString("en-IN")} />
+                <KPICard label="Transactions" value={summary.transaction_count} />
+                <KPICard label="Daily Avg" value={"\u20B9" + summary.daily_average.toLocaleString("en-IN")} />
+                <KPICard label="Top Vendor" value={summary.top_vendor || "\u2014"} sub={summary.top_vendor ? "\u20B9" + summary.top_vendor_amount.toLocaleString("en-IN") : ""} />
+              </div>
+            )}
+            <StreakTracker currentStreak={streak.current_streak} longestStreak={streak.longest_streak} />
+            <BudgetProgress spent={summary?.total || 0} budget={summary?.budget} />
+            <MonthComparison data={comparison} />
+          </>
+        ) : (
+          <>
+            <VendorPieChart data={vendorData} />
+            <MonthlyBarChart data={trendData} />
+          </>
+        )}
       </div>
     </div>
   );
@@ -91,10 +98,10 @@ export default function Dashboard() {
 
 function KPICard({ label, value, sub }) {
   return (
-    <div className="bg-white rounded-2xl p-5 border border-gray-100">
-      <p className="text-xs font-medium text-gray-500 uppercase tracking-wide">{label}</p>
-      <p className="text-2xl font-bold text-gray-900 mt-1">{value}</p>
-      {sub && <p className="text-xs text-gray-400 mt-0.5">{sub}</p>}
+    <div className="bg-white rounded-xl p-3 border border-gray-100">
+      <p className="text-[10px] font-medium text-gray-400 uppercase tracking-wide">{label}</p>
+      <p className="text-lg font-bold text-gray-900 mt-0.5 truncate">{value}</p>
+      {sub && <p className="text-[10px] text-gray-400">{sub}</p>}
     </div>
   );
 }
